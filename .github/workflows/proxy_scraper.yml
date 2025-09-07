@@ -11,9 +11,11 @@ on:
 jobs:
   run_proxy_scraper:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required for committing and pushing changes
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated to v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -29,7 +31,7 @@ jobs:
       run: python proxy_scraper.py
 
     - name: Commit and Push new proxy.txt
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v5  # Updated to v5
       with:
         commit_message: "Update working proxies from web scraping (IST 6 AM/PM)"
-        files: proxy.txt
+        file_pattern: proxy.txt  # Changed from 'files' to 'file_pattern'
